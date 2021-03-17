@@ -1,0 +1,13 @@
+[
+    {
+        "name": "JavaScipt",
+        "code": "JavaScipt",
+        "parentCode": "web"
+    }
+,
+    {
+        "name": "Linux",
+        "code": "Linux",
+        "parentCode": "os"
+    }
+]

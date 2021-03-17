@@ -4,7 +4,7 @@
       <tool-bar v-on:changeNode="changeMain" :toolList="mainBarList"></tool-bar>
     </div>
     <div class="sub-bar">
-      <tool-bar></tool-bar>
+      <tool-bar :toolList="sub"></tool-bar>
     </div>
   </header>
 </template>
@@ -15,15 +15,26 @@ export default {
   data: function () {
     return {
       mainBarList: [],
+      subBarList: [],
+      activeMainCode: "",
+      sub:[]
     };
   },
   components: { ToolBar },
+  watch: {
+    activeMainCode: function () {
+     this.sub=this.subBarList.filter(t=>t.parentCode==this.activeMainCode)
+    },
+  },
   mounted: async function () {
     let mainBarListdata = await this.$axios.get("/config/main.json");
     this.mainBarList = mainBarListdata;
+    let subBarList = await this.$axios.get("/config/sub.json");
+    this.subBarList = subBarList;
   },
   methods: {
     changeMain: function (item) {
+      this.activeMainCode = item.code;
       console.log(item);
     },
   },
