@@ -1,32 +1,36 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <style lang="scss">
+* {
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+}
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: ApkMe, "Microsoft Yahei", "Hiragino Sans GB",
+    "WenQuanYi Micro Hei", 微软雅黑, 华文细黑, STHeiti;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+body {
+  background: #f4f5f5;
 }
 </style>
