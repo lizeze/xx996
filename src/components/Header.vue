@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="main-bar">
-      <tool-bar v-on:changeNode="changeMain" :toolList="mainBarList"></tool-bar>
+      <tool-bar v-on:changeNode="changeMain" :toolList="mainBarList.filter(t=>t.parentCode==0)"></tool-bar>
     </div>
     <div class="sub-bar">
       <tool-bar :toolList="sub"></tool-bar>
@@ -10,32 +10,35 @@
 </template>
 <script>
 import ToolBar from "./ToolBar.vue";
+
 export default {
   name: "PageHeader",
   data: function () {
     return {
       mainBarList: [],
       subBarList: [],
-      activeMainCode: "",
-      sub:[]
+      sub: [],
+      activeMainCode: ''
     };
   },
-  components: { ToolBar },
+  components: {ToolBar},
   watch: {
     activeMainCode: function () {
-     this.sub=this.subBarList.filter(t=>t.parentCode==this.activeMainCode)
+      this.sub = this.mainBarList.filter(
+          (t) => t.parentCode == this.activeMainCode
+      );
     },
   },
   mounted: async function () {
-    let mainBarListdata = await this.$axios.get("/config/main.json");
+    let mainBarListdata = await this.$axios.get("/article/type/");
     this.mainBarList = mainBarListdata;
-    let subBarList = await this.$axios.get("/config/sub.json");
-    this.subBarList = subBarList;
+    this.$store.commit('mainType', mainBarListdata[0].typeCode)
+    this.activeMainCode = mainBarListdata[0].typeCode;
   },
   methods: {
     changeMain: function (item) {
-      this.activeMainCode = item.code;
-      console.log(item);
+      this.activeMainCode = item.typeCode;
+      this.$store.commit('mainType', item.typeCode)
     },
   },
 };
@@ -44,11 +47,13 @@ export default {
 header {
   background: #fff;
   box-shadow: 0 3px 3px #eee;
+
   .main-bar {
     padding: 10px;
     font-weight: 400;
     border-bottom: 1px solid #eee;
   }
+
   .sub-bar {
     padding: 10px;
   }

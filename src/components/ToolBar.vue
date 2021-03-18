@@ -3,11 +3,11 @@
     <div
       class="item"
       v-for="item in toolList"
-      v-bind:key="item.code"
+      v-bind:key="item.typeCode"
       @click="itemClick(item)"
-      v-bind:class="{ active: activeCode === item.code }"
+      v-bind:class="{ active: activeCode === item.typeCode }"
     >
-      {{ item.name }}
+      {{ item.typeName }}
     </div>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {
   methods: {
     itemClick: function (item) {
       this.$emit("changeNode", item);
-      this.activeCode = item.code;
+      this.activeCode = item.typeCode;
     },
   },
   props: {
@@ -28,7 +28,7 @@ export default {
   },
   data: function () {
     return {
-      activeCode: "",
+      activeCode: 'web',
     };
   },
 };

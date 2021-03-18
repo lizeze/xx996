@@ -1,8 +1,9 @@
 <template>
   <div class="home">
     <page-header class="tool-bar"></page-header>
-
-    <article-list class="article"></article-list>
+    <div class="article">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -19,12 +20,16 @@ export default {
 .home {
   color: #71777c;
   .tool-bar {
-    margin-bottom: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 80px;
   }
   .article {
     background: #fff;
     width: 888px;
-    margin: auto;
+
+    margin: 110px auto 0;
   }
 }
 </style>

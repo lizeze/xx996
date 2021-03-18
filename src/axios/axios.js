@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = '/'; // 请求的默认域名
+axios.defaults.baseURL = 'http://localhost:8080/api/'; // 请求的默认域名
 // 添加一个请求拦截器
  
 //添加一个响应拦截器
