@@ -17,10 +17,13 @@ export default {
   methods: {
     itemClick: function (item) {
       this.$emit("changeNode", item);
-      this.activeCode = item.typeCode;
+      // this.activeCode = item.typeCode;
     },
   },
   props: {
+    activeCode:{
+      type:String
+    },
     toolList: {
       type: Array,
       defaultValue: [],
@@ -28,7 +31,6 @@ export default {
   },
   data: function () {
     return {
-      activeCode: 'web',
     };
   },
 };

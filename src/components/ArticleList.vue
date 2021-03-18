@@ -29,6 +29,13 @@ export default {
 
     this.loadData()
   },
+  watch: {
+    $route(to, from) {
+      if (to.params.m != from.params.m||to.params.s!=from.params.s) {
+        this.loadData()
+      }
+    }
+  },
   methods: {
     articleUrl: function (item) {
 
@@ -37,13 +44,14 @@ export default {
     ,
     loadData: async function () {
       let map = {}
-      let mainCode = this.$store.getters.mainType;
-      let subCode = this.$store.getters.subType;
+      debugger
+
+      let mainCode = this.$route.params.m;
+      let subCode = this.$route.params.s;
       if (mainCode)
         map["type_code"] = mainCode
-      if (subCode)
+      if (subCode&&subCode!=='all')
         map["sub_code"] = subCode
-      debugger
       let data = await this.$axios.post('/article/list', map)
       this.articleList = data
     },

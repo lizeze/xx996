@@ -1,10 +1,11 @@
 <template>
   <header>
     <div class="main-bar">
-      <tool-bar v-on:changeNode="changeMain" :toolList="mainBarList.filter(t=>t.parentCode==0)"></tool-bar>
+      <tool-bar :active-code="activeMainCode" v-on:changeNode="changeMain"
+                :toolList="mainBarList.filter(t=>t.parentCode==0)"></tool-bar>
     </div>
     <div class="sub-bar">
-      <tool-bar :toolList="sub"></tool-bar>
+      <tool-bar :active-code="activeSubCode" v-on:changeNode="changeSub" :toolList="this.getSubCodes()"></tool-bar>
     </div>
   </header>
 </template>
@@ -18,7 +19,8 @@ export default {
       mainBarList: [],
       subBarList: [],
       sub: [],
-      activeMainCode: ''
+      activeMainCode: '',
+      activeSubCode: 'all'
     };
   },
   components: {ToolBar},
@@ -36,9 +38,31 @@ export default {
     this.activeMainCode = mainBarListdata[0].typeCode;
   },
   methods: {
+    getSubCodes: function () {
+
+      let subCode = [{typeName: "全部", typeCode: 'all'}];
+      let list = this.mainBarList.filter(t => t.parentCode === this.activeMainCode)
+      return subCode.concat(list)
+
+    },
+    getArticleList: function () {
+
+      this.$router.push({
+        path: '/list/' + this.activeMainCode + '/' + this.activeSubCode + '?v=' + new Date().getTime()
+      })
+
+    },
+    changeSub: function (item) {
+      this.activeSubCode = item.typeCode;
+      this.getArticleList()
+
+
+    },
     changeMain: function (item) {
       this.activeMainCode = item.typeCode;
-      this.$store.commit('mainType', item.typeCode)
+      this.activeSubCode = 'all'
+      this.getArticleList()
+
     },
   },
 };

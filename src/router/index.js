@@ -16,7 +16,7 @@ const routes = [
       {
         // 当 /user/:id/profile 匹配成功，
         // UserProfile 会被渲染在 User 的 <router-view> 中
-        path: '/',
+        path: '/list/:m/:s',
         component: () => import('../components/ArticleList.vue'),
         meta: {
           title: '首页1'
