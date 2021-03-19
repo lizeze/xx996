@@ -42,7 +42,7 @@ export default {
     let mainBarListdata = await this.$axios.get("/article/type/");
     this.mainBarList = mainBarListdata;
     this.activeMainCode = mainBarListdata[0].typeCode;
-  
+
     if (this.$route.params.m) {
       this.activeMainCode = this.$route.params.m;
       this.activeSubCode = this.$route.params.s;
@@ -63,7 +63,7 @@ export default {
           "/list/" +
           this.activeMainCode +
           "/" +
-          this.activeSubCode 
+          this.activeSubCode
       });
     },
     changeSub: function (item) {
