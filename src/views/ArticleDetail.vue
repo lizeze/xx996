@@ -34,5 +34,5 @@ export default {
   //background: #F5F5D5;
 }
 </style>
-<style src="../assets/solarized.css">
+<style src="../assets/vue/vue.css">
 </style>

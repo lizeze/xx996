@@ -1,11 +1,18 @@
 <template>
   <header>
     <div class="main-bar">
-      <tool-bar :active-code="activeMainCode" v-on:changeNode="changeMain"
-                :toolList="mainBarList.filter(t=>t.parentCode==0)"></tool-bar>
+      <tool-bar
+        :active-code="activeMainCode"
+        v-on:changeNode="changeMain"
+        :toolList="mainBarList.filter((t) => t.parentCode == 0)"
+      ></tool-bar>
     </div>
     <div class="sub-bar">
-      <tool-bar :active-code="activeSubCode" v-on:changeNode="changeSub" :toolList="this.getSubCodes()"></tool-bar>
+      <tool-bar
+        :active-code="activeSubCode"
+        v-on:changeNode="changeSub"
+        :toolList="this.getSubCodes()"
+      ></tool-bar>
     </div>
   </header>
 </template>
@@ -19,50 +26,54 @@ export default {
       mainBarList: [],
       subBarList: [],
       sub: [],
-      activeMainCode: '',
-      activeSubCode: 'all'
+      activeMainCode: "",
+      activeSubCode: "all",
     };
   },
-  components: {ToolBar},
+  components: { ToolBar },
   watch: {
     activeMainCode: function () {
       this.sub = this.mainBarList.filter(
-          (t) => t.parentCode == this.activeMainCode
+        (t) => t.parentCode == this.activeMainCode
       );
     },
   },
   mounted: async function () {
     let mainBarListdata = await this.$axios.get("/article/type/");
     this.mainBarList = mainBarListdata;
-    this.$store.commit('mainType', mainBarListdata[0].typeCode)
     this.activeMainCode = mainBarListdata[0].typeCode;
+  
+    if (this.$route.params.m) {
+      this.activeMainCode = this.$route.params.m;
+      this.activeSubCode = this.$route.params.s;
+    }
+    if (this.$route.path === "/") this.getArticleList();
   },
   methods: {
     getSubCodes: function () {
-
-      let subCode = [{typeName: "全部", typeCode: 'all'}];
-      let list = this.mainBarList.filter(t => t.parentCode === this.activeMainCode)
-      return subCode.concat(list)
-
+      let subCode = [{ typeName: "全部", typeCode: "all" }];
+      let list = this.mainBarList.filter(
+        (t) => t.parentCode === this.activeMainCode
+      );
+      return subCode.concat(list);
     },
     getArticleList: function () {
-
       this.$router.push({
-        path: '/list/' + this.activeMainCode + '/' + this.activeSubCode + '?v=' + new Date().getTime()
-      })
-
+        path:
+          "/list/" +
+          this.activeMainCode +
+          "/" +
+          this.activeSubCode 
+      });
     },
     changeSub: function (item) {
       this.activeSubCode = item.typeCode;
-      this.getArticleList()
-
-
+      this.getArticleList();
     },
     changeMain: function (item) {
       this.activeMainCode = item.typeCode;
-      this.activeSubCode = 'all'
-      this.getArticleList()
-
+      this.activeSubCode = "all";
+      this.getArticleList();
     },
   },
 };
