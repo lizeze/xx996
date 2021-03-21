@@ -17,6 +17,9 @@
   fill: currentColor;
   overflow: hidden;
 }
+div.code {
+  white-space: pre;
+}
 a {
   text-decoration: none;
   color: inherit;

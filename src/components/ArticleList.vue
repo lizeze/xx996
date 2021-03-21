@@ -2,28 +2,27 @@
   <div class="article-list-warpper">
     <div class="search-box">
       <span
-          class="search-item"
-          v-for="item in searchList"
-          :class="{ active: searchType === item }"
-          :key="item"
-          @click="loadData(item)"
-      >{{ item }}</span
+        class="search-item"
+        v-for="item in searchList"
+        :class="{ active: searchType === item }"
+        :key="item"
+        @click="loadData(item)"
+        >{{ item }}</span
       >
     </div>
     <div class="article-list">
       <div class="item" v-for="item in articleList" v-bind:key="item.id">
         <div class="info">
           <tag
-              type="info"
-              v-for="labelText in item.articleLabel.split(',')"
-              :text="labelText"
-              :key="labelText"
-          ></tag
-          >
+            type="info"
+            v-for="labelText in item.articleLabel.split(',')"
+            :text="labelText"
+            :key="labelText"
+          ></tag>
           {{ item.createTime }}
         </div>
         <div class="title">
-          <a :href="articleUrl(item)">{{ item.articleTitle }}</a>
+          <a @click="articleUrl(item)">{{ item.articleTitle }}</a>
         </div>
         <div class="other">
           <div class="num">
@@ -40,17 +39,14 @@
           </div>
         </div>
       </div>
-      <div class="no-data" v-if="articleList.length<=0">
-
-        暂无数据
-      </div>
+      <div class="no-data" v-if="articleList.length <= 0">暂无数据</div>
     </div>
   </div>
 </template>
 <script>
 import Tag from "./Tag.vue";
 export default {
-  components: {Tag},
+  components: { Tag },
   mounted() {
     this.loadData();
   },
@@ -63,16 +59,19 @@ export default {
   },
   methods: {
     articleUrl: function (item) {
-      return "/a/" + item.id;
+      this.$router.push({
+        path: "/a/" + item.id,
+      });
+      // return "/a/" + item.id;
     },
     loadData: async function (type) {
-      debugger
+      debugger;
       let map = {};
       let api = "/article/list";
       if (type === "热门") {
         api = "/article/hot/list";
       } else {
-        type = '最新'
+        type = "最新";
       }
       this.searchType = type;
 

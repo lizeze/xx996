@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/api/' : 'https://xx996.cn/blog'; // 请求的默认域名
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/api/' : 'https://xx996.cn/blogapi'; // 请求的默认域名
 // 添加一个请求拦截器
 
 //添加一个响应拦截器

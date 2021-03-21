@@ -5,8 +5,8 @@ import store from './store'
 import axios from './axios/axios'
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios //全局注册，使用方法为:this.$axios
-console.log(process.env.NODE_ENV);
-
+import Highlight from './utils/highlight'; // from 路径是highlight.js的路径，纯属自定义
+Vue.use(Highlight);
 new Vue({
   router,
   store,

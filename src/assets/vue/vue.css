@@ -341,7 +341,9 @@ tt {
     color: #222;
     font-weight: 500;
 }
-
+#write img{
+   max-width: 666px;
+}
 #write del {
     padding: 1px 2px;
 }
